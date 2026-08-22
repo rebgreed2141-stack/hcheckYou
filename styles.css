@@ -462,11 +462,59 @@ input[type="month"], select {
 
 @media (max-width: 960px) {
   body { margin: 10px; }
-  .header-grid {
-    grid-template-columns: 1fr 1fr;
+
+  /* 入力画面上部を縦方向にコンパクト化
+     1段目：クラス／対象月／今月へ
+     2段目：チェック済み／対象マス数／達成率 */
+  .sticky-header {
+    padding-bottom: 4px;
   }
+
+  .header-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px 10px;
+    padding: 4px 0;
+  }
+
+  .field-group {
+    gap: 3px;
+  }
+
+  .field-group label,
+  .summary-label {
+    font-size: 13px;
+  }
+
+  input[type="month"], select {
+    min-height: 40px;
+    padding: 6px 10px;
+    font-size: 18px;
+    border-radius: 8px;
+  }
+
+  #today-btn {
+    min-height: 40px;
+    padding: 0 10px;
+  }
+
+  .summary-card {
+    min-height: 56px;
+    padding: 6px 10px;
+    border-radius: 9px;
+  }
+
+  .summary-value {
+    margin-top: 1px;
+    font-size: 22px;
+  }
+
+  .header-note {
+    padding: 2px 0 4px;
+    font-size: 12px;
+  }
+
   .matrix-wrap {
-    max-height: calc(100vh - 240px);
+    max-height: calc(100vh - 160px);
   }
   .matrix-table .corner-head,
   .matrix-table .item-head,
