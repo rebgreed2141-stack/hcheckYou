@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>クラス別チェックリスト</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="tabs">
+    <div class="tabs-left">
+      <button class="tab-btn active" data-tab="input">入力</button>
+      <button class="tab-btn" data-tab="month">月一覧</button>
+      <button class="tab-btn" data-tab="admin">管理</button>
+      <button class="tab-btn" data-tab="version">バージョン</button>
+    </div>
+    <div class="app-version" id="app-version">Ver.確認中</div>
+  </div>
+
+  <section id="tab-input" class="tab-panel active">
+    <div class="sticky-header">
+      <div class="header-grid">
+        <div class="field-group">
+          <label for="class-select">クラス</label>
+          <select id="class-select"></select>
+        </div>
+
+        <div class="field-group">
+          <label for="month-select">対象月</label>
+          <input type="month" id="month-select">
+        </div>
+
+        <div class="field-group">
+          <label>&nbsp;</label>
+          <button id="today-btn" class="secondary-btn" type="button">今月へ</button>
+        </div>
+
+        <div class="summary-card">
+          <div class="summary-label">チェック済み</div>
+          <div id="checked-count" class="summary-value">0</div>
+        </div>
+
+        <div class="summary-card">
+          <div class="summary-label">対象マス数</div>
+          <div id="total-count" class="summary-value">0</div>
+        </div>
+
+        <div class="summary-card">
+          <div class="summary-label">達成率</div>
+          <div id="checked-rate" class="summary-value">0%</div>
+        </div>
+      </div>
+      <div class="header-note">日曜日は自動で非表示。左端の項目名と上の日付は固定です。</div>
+    </div>
+
+    <div class="matrix-wrap">
+      <table class="matrix-table">
+        <thead id="matrix-head"></thead>
+        <tbody id="matrix-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="tab-month" class="tab-panel">
+    <div class="month-wrap">
+      <div class="month-toolbar">
+        <div class="month-toolbar-left">
+          <button id="prev-month-btn" class="secondary-btn" type="button">前月</button>
+          <h2 id="month-title" class="month-title"></h2>
+          <button id="next-month-btn" class="secondary-btn" type="button">次月</button>
+        </div>
+        <div id="month-class-label" class="month-class-label"></div>
+      </div>
+      <div id="month-summary" class="month-summary"></div>
+      <div class="daily-grid-wrap">
+        <table class="daily-summary-table">
+          <thead>
+            <tr>
+              <th>日付</th>
+              <th>曜日</th>
+              <th>完了数</th>
+              <th>達成率</th>
+              <th>未チェック数</th>
+            </tr>
+          </thead>
+          <tbody id="daily-summary-body"></tbody>
+        </table>
+      </div>
+      <div id="missing-panel" class="missing-panel">
+        <div class="missing-title">日付を押すと、その日の未チェック項目をここに表示します。</div>
+        <div id="missing-list"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tab-admin" class="tab-panel">
+    <div class="admin-page">
+      <h2 class="admin-heading">管理</h2>
+      <div class="admin-subtitle">サーバーの読込・保存、バックアップ、復元、削除を行います。</div>
+
+      <div class="server-card">
+        <div class="server-title">サーバー接続</div>
+        <label class="server-label" for="server-url-input">園内PC URL</label>
+        <input type="url" id="server-url-input" class="server-input" value="http://192.168.2.60:3000">
+        <button id="save-server-url-btn" class="server-save-btn" type="button">保存</button>
+      </div>
+
+      <button id="backup-btn" class="admin-action-btn backup-btn" type="button">バックアップ</button>
+      <button id="load-server-btn" class="admin-action-btn send-btn" type="button">サーバーから読込</button>
+      <button id="send-server-btn" class="admin-action-btn send-btn" type="button">今すぐサーバー保存</button>
+      <button id="restore-btn" class="admin-action-btn restore-btn" type="button">データ復元</button>
+      <button id="delete-btn" class="admin-action-btn delete-btn" type="button">データ削除</button>
+      <input type="file" id="restore-file" accept=".json" hidden>
+
+      <div class="admin-note" id="admin-note">
+        起動時にサーバーから最新データを読み込み、チェック変更時は自動でサーバーへ保存します。
+      </div>
+    </div>
+  </section>
+
+
+  <section id="tab-version" class="tab-panel">
+    <div class="version-page">
+      <h2 class="admin-heading">バージョン</h2>
+      <div id="version-status" class="admin-subtitle">バージョン情報を確認しています。</div>
+
+      <div class="version-card">
+        <div class="version-title">現在のバージョン</div>
+        <div id="current-version-text" class="version-value">確認中</div>
+      </div>
+
+      <div class="version-card">
+        <div class="version-title">最新のバージョン</div>
+        <div id="latest-version-text" class="version-value">確認中</div>
+      </div>
+
+      <div class="version-card">
+        <button id="version-reload-btn" class="admin-action-btn backup-btn" type="button">再確認</button>
+        <div class="version-note">version.json を変更すると、この画面に反映されます。</div>
+      </div>
+    </div>
+  </section>
+
+  <script src="checklists.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
