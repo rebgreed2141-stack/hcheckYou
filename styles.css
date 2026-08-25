@@ -578,3 +578,44 @@ input[type="month"], select {
   font-size: 14px;
   line-height: 1.7;
 }
+
+
+.admin-class-checkboxes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 12px;
+}
+
+.admin-class-check {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 42px;
+  padding: 8px 10px;
+  border: 1px solid #d5dde7;
+  border-radius: 10px;
+  background: #f8fafc;
+  color: #0f2744;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.admin-class-check input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+}
+
+.class-select-note {
+  margin-top: 10px;
+  color: #7b8794;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+
+.admin-class-check span {
+  display: inline-block;
+  line-height: 1.2;
+}
